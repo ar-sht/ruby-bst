@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a126ff93-e505-4e24-9685-6077880f16c6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/node.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/node.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/tree.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/tree.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -172,7 +172,7 @@
       <option name="presentableId" value="Default" />
       <updated>1664485474893</updated>
       <workItem from="1664485477037" duration="12821000" />
-      <workItem from="1664540074774" duration="2416000" />
+      <workItem from="1664540074774" duration="4024000" />
     </task>
     <servers />
   </component>
@@ -192,6 +192,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/binary_search_tree@node.rcov" NAME="node Coverage Results" MODIFIED="1664498770405" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="binary_search_tree" />
-    <SUITE FILE_PATH="coverage/binary_search_tree@tree.rcov" NAME="tree Coverage Results" MODIFIED="1664543133868" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="binary_search_tree" />
+    <SUITE FILE_PATH="coverage/binary_search_tree@tree.rcov" NAME="tree Coverage Results" MODIFIED="1664545611721" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="binary_search_tree" />
   </component>
 </project>

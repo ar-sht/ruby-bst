@@ -129,7 +129,21 @@ class Tree
   def delete(val)
     to_delete = find(val)
     parent_and_dir = find_parent(to_delete)
-    return nil if to_delete.nil? || parent_and_dir.nil?
+    return nil if to_delete.nil?
+    if parent_and_dir.nil?
+      if to_delete.leaf?
+        @root = nil
+      elsif to_delete.children_count == 1
+        @root = to_delete.left.nil? ? to_delete.right : to_delete.left
+      else
+        to_assign = to_delete.left.descendants_count > to_delete.right.descendants_count ? find_max(to_delete.left) : find_min(to_delete.right)
+        delete(to_assign.data)
+        to_assign.left = to_delete.left
+        to_assign.right = to_delete.right
+        @root = to_assign
+      end
+      return
+    end
 
     parent = parent_and_dir[0]
     direction = parent_and_dir[1]
@@ -138,7 +152,6 @@ class Tree
     elsif to_delete.children_count == 1
       to_delete.left.nil? ? parent.change_child(direction, to_delete.right) : parent.change_child(direction, to_delete.left)
     else
-      # TODO: find parent and reassign child to smallest/largest ancestor of largest lineage
       if to_delete.left.descendants_count > to_delete.right.descendants_count
         to_assign = find_max(to_delete.left)
         delete(to_assign.data)
@@ -159,15 +172,22 @@ end
 
 test_tree = Tree.new(cool_array)
 test_tree.pretty_print
+
 5.times do
   num = rand(100)
   test_tree.insert(num)
-  p "Inserting: #{num}"
+  puts "Inserting: #{num}"
 end
 test_tree.pretty_print
+
 3.times do
   num = cool_array.sample
   test_tree.delete(num)
-  p "Deleting: #{num}"
+  puts "Deleting: #{num}"
 end
+test_tree.pretty_print
+
+root = test_tree.get_root
+puts "Deleting root: #{root.data}"
+test_tree.delete(root.data)
 test_tree.pretty_print
