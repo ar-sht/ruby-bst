@@ -2,10 +2,19 @@ require_relative 'node'
 require 'pry-byebug'
 
 class Tree
-  def initialize(arr)
+  def initialize(arr = nil)
+    if arr.nil?
+      @root = nil
+      return
+    end
+
     sorted_array = sort(arr)
     nice_array = clean(sorted_array)
     @root = build_tree(nice_array)
+  end
+
+  def get_root
+    @root
   end
 
   def build_tree(array)
@@ -61,12 +70,57 @@ class Tree
     end
     merged_arr
   end
+
+  def find(val, root = @root)
+    search_node = Node.new(val)
+    return nil if root.nil?
+    return root if search_node == root
+
+    if search_node > root
+      find(val, root.right)
+    else
+      find(val, root.left)
+    end
+  end
+
+  def insert(val)
+    new_node = Node.new(val)
+    current_node = @root
+    if current_node.nil?
+      @root = new_node
+      return
+    end
+
+    until current_node.nil?
+      return nil if new_node == current_node
+
+      last_node = current_node
+      current_node = new_node > last_node ? last_node.right : last_node.left
+    end
+    new_node > last_node ? last_node.right = new_node : last_node.left = new_node
+  end
+
+  def delete(val)
+    to_delete = find(val)
+    return nil if to_delete.nil?
+
+    if to_delete.leaf?
+      # TODO: find parent and pop from children
+    elsif to_delete.children_count == 1
+      # TODO: find parent and reassign child to child of to_delete
+    else
+      # TODO: find parent and reassign child to smallest/largest ancestor of largest lineage
+    end
+  end
 end
+cool_array = [4, 2, 5, 7]
 
-cool_array = []
-
-(1..128).each do |i|
-  cool_array << i
-end
-
-Tree.new(cool_array).pretty_print
+test_tree = Tree.new(cool_array)
+test_tree.pretty_print
+test_tree.insert(6)
+test_tree.insert(3)
+test_tree.insert(7)
+test_tree.insert(-45)
+test_tree.pretty_print
+p test_tree.get_root.children_count
+p test_tree.get_root.descendants_count
