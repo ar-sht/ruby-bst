@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require_relative 'node'
 require 'pry-byebug'
 
@@ -56,17 +57,15 @@ class Tree
   def merge(arr1, arr2)
     merged_arr = []
     (arr1.size + arr2.size).times do
-      if arr1.empty?
-        merged_arr << arr2.shift
+      merged_arr << if arr1.empty?
+        arr2.shift
       elsif arr2.empty?
-        merged_arr << arr1.shift
-      else
-        if arr1[0] <= arr2[0]
-          merged_arr << arr1.shift
+        arr1.shift
+      elsif arr1[0] <= arr2[0]
+        arr1.shift
         else
-          merged_arr << arr2.shift
-        end
-      end
+          arr2.shift
+                    end
     end
     merged_arr
   end
@@ -81,6 +80,33 @@ class Tree
     else
       find(val, root.left)
     end
+  end
+
+  def find_parent(node, root = @root)
+    return nil if root.nil? || node.nil? || find(node.data).nil? || find(node.data) == root
+    if root.left == node
+      return [root, :left]
+    elsif root.right == node
+      return [root, :right]
+    end
+
+    if node > root
+      find_parent(node, root.right)
+    else
+      find_parent(node, root.left)
+    end
+  end
+  
+  def find_min(root = @root)
+    current_node = root
+    current_node = current_node.left until current_node.left.nil?
+    current_node
+  end
+
+  def find_max(root = @root)
+    current_node = root
+    current_node = current_node.right until current_node.right.nil?
+    current_node
   end
 
   def insert(val)
@@ -102,25 +128,46 @@ class Tree
 
   def delete(val)
     to_delete = find(val)
-    return nil if to_delete.nil?
+    parent_and_dir = find_parent(to_delete)
+    return nil if to_delete.nil? || parent_and_dir.nil?
 
+    parent = parent_and_dir[0]
+    direction = parent_and_dir[1]
     if to_delete.leaf?
-      # TODO: find parent and pop from children
+      parent.change_child(direction)
     elsif to_delete.children_count == 1
-      # TODO: find parent and reassign child to child of to_delete
+      to_delete.left.nil? ? parent.change_child(direction, to_delete.right) : parent.change_child(direction, to_delete.left)
     else
       # TODO: find parent and reassign child to smallest/largest ancestor of largest lineage
+      if to_delete.left.descendants_count > to_delete.right.descendants_count
+        to_assign = find_max(to_delete.left)
+        delete(to_assign.data)
+        to_assign.right = to_delete.right
+      else
+        to_assign = find_min(to_delete.right)
+        delete(to_assign.data)
+        to_assign.left = to_delete.left
+      end
+      parent.change_child(direction, to_assign)
     end
   end
 end
-cool_array = [4, 2, 5, 7]
+cool_array = []
+10.times do
+  cool_array << rand(50)
+end
 
 test_tree = Tree.new(cool_array)
 test_tree.pretty_print
-test_tree.insert(6)
-test_tree.insert(3)
-test_tree.insert(7)
-test_tree.insert(-45)
+5.times do
+  num = rand(100)
+  test_tree.insert(num)
+  p "Inserting: #{num}"
+end
 test_tree.pretty_print
-p test_tree.get_root.children_count
-p test_tree.get_root.descendants_count
+3.times do
+  num = cool_array.sample
+  test_tree.delete(num)
+  p "Deleting: #{num}"
+end
+test_tree.pretty_print

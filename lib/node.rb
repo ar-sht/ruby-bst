@@ -35,4 +35,12 @@ class Node
 
     current_node.children_count + descendants_count(current_node.left) + descendants_count(current_node.right)
   end
+
+  def change_child(direction_symbol, new_val = nil)
+    if direction_symbol == :left
+      @left = new_val
+    elsif direction_symbol == :right
+      @right = new_val
+    end
+  end
 end
