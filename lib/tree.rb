@@ -31,12 +31,14 @@ class Tree
     root
   end
 
+  # stolen printing method
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
 
+  # array-cleaning methods
   def clean(array)
     clean_arr = []
     array.each do |val|
@@ -70,6 +72,7 @@ class Tree
     merged_arr
   end
 
+  # tree searching methods
   def find(val, root = @root)
     search_node = Node.new(val)
     return nil if root.nil?
@@ -109,6 +112,7 @@ class Tree
     current_node
   end
 
+  # tree-editing methods
   def insert(val)
     new_node = Node.new(val)
     current_node = @root
@@ -166,6 +170,7 @@ class Tree
     end
   end
 
+  # traversal methods
   def level_order
     return if @root.nil?
 
@@ -210,6 +215,15 @@ class Tree
     block_given? ? yield(root) : all_nodes << root.data
 
     all_nodes unless block_given?
+  end
+
+  # node-attribute-relative-to-tree methods
+  def height(node)
+    return 0 if node.nil? || node.leaf?
+    return height(node.left) if node.right.nil?
+    return height(node.right) if node.left.nil?
+
+    1 + [height(node.left), height(node.right)].max
   end
 end
 cool_array = []
@@ -291,3 +305,5 @@ print "With block multiplying by 3:\t"
 test_tree.postorder { |node| print "#{node.data * 3}\t" }
 puts
 puts "Without block:\t\t\t#{test_tree.postorder.join("\t")}"
+
+p test_tree.height(test_tree.get_root)
