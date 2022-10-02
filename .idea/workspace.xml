@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a126ff93-e505-4e24-9685-6077880f16c6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/simple_tester.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/binary_search_tree.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/binary_search_tree.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/tree.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/tree.rb" afterDir="false" />
     </list>
@@ -9,6 +11,13 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Ruby File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -174,7 +183,7 @@
       <workItem from="1664485477037" duration="12821000" />
       <workItem from="1664540074774" duration="6937000" />
       <workItem from="1664749067107" duration="2635000" />
-      <workItem from="1664751721647" duration="1715000" />
+      <workItem from="1664751721647" duration="2662000" />
     </task>
     <servers />
   </component>

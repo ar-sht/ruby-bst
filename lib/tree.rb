@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require_relative 'node'
-require 'pry-byebug'
 
 class Tree
   def initialize(arr = nil)
@@ -19,7 +18,6 @@ class Tree
   end
 
   def build_tree(array)
-    # binding.pry
     return nil if array.empty?
 
     first = 0
@@ -244,90 +242,8 @@ class Tree
 
     false
   end
+
+  def rebalance
+    @root = build_tree(inorder)
+  end
 end
-cool_array = []
-15.times do
-  cool_array << rand(50)
-end
-
-puts 'Generating new tree:'
-test_tree = Tree.new(cool_array)
-test_tree.pretty_print
-
-puts test_tree.balanced? ? 'Tree is balanced' : 'Tree is not balanced'
-
-puts
-puts
-
-puts 'Inserting random values:'
-5.times do
-  num = rand(100)
-  test_tree.insert(num)
-  puts "Inserting: #{num}"
-end
-test_tree.pretty_print
-
-puts test_tree.balanced? ? 'Tree is balanced' : 'Tree is not balanced'
-
-puts
-puts
-
-puts 'Deleting random values:'
-3.times do
-  num = cool_array.sample
-  test_tree.delete(num)
-  puts "Deleting: #{num}"
-end
-test_tree.pretty_print
-
-puts test_tree.balanced? ? 'Tree is balanced' : 'Tree is not balanced'
-
-puts
-puts
-
-puts 'Getting values:'
-
-puts
-puts
-
-puts 'Breadth-first search:'
-puts 'Level Order:'
-print "With block multiplying by 3:\t"
-test_tree.level_order { |node| print "#{node.data * 3}\t" }
-puts
-puts "Without block:\t\t\t#{test_tree.level_order.join("\t")}"
-
-puts
-puts
-
-puts 'Depth-first search:'
-puts 'In-order:'
-print "With block multiplying by 3:\t"
-test_tree.inorder { |node| print "#{node.data * 3}\t" }
-puts
-puts "Without block:\t\t\t#{test_tree.inorder.join("\t")}"
-
-puts
-
-puts 'Pre-order:'
-print "With block multiplying by 3:\t"
-test_tree.preorder { |node| print "#{node.data * 3}\t" }
-puts
-puts "Without block:\t\t\t#{test_tree.preorder.join("\t")}"
-
-puts
-
-puts 'Post-order:'
-print "With block multiplying by 3:\t"
-test_tree.postorder { |node| print "#{node.data * 3}\t" }
-puts
-puts "Without block:\t\t\t#{test_tree.postorder.join("\t")}"
-
-puts
-puts
-
-puts 'Getting height & depth of random node:'
-rand_data_point = test_tree.inorder.sample
-puts "The height of #{rand_data_point} is #{test_tree.height(test_tree.find(rand_data_point))}"
-
-puts "The depth of #{rand_data_point} is #{test_tree.depth(test_tree.find(rand_data_point))}"
