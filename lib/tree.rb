@@ -167,28 +167,64 @@ class Tree
   end
 
   def level_order
+    return if @root.nil?
+
     queue = []
     all_nodes = []
 
     current_node = @root
     until current_node.nil?
-      yield(current_node) if block_given?
-      all_nodes << current_node.data
+      block_given? ? yield(current_node) : all_nodes << current_node.data
       queue << current_node.left unless current_node.left.nil?
       queue << current_node.right unless current_node.right.nil?
       current_node = queue.shift
     end
     all_nodes unless block_given?
   end
+
+  def inorder(root = @root, all_nodes = [], &block)
+    return if root.nil?
+
+    inorder(root.left, all_nodes, &block)
+    block_given? ? yield(root) : all_nodes << root.data
+    inorder(root.right, all_nodes, &block)
+
+    all_nodes unless block_given?
+  end
+
+  def preorder(root = @root, all_nodes = [], &block)
+    return if root.nil?
+
+    block_given? ? yield(root) : all_nodes << root.data
+    preorder(root.left, all_nodes, &block)
+    preorder(root.right, all_nodes, &block)
+
+    all_nodes unless block_given?
+  end
+
+  def postorder(root = @root, all_nodes = [], &block)
+    return if root.nil?
+
+    postorder(root.left, all_nodes, &block)
+    postorder(root.right, all_nodes, &block)
+    block_given? ? yield(root) : all_nodes << root.data
+
+    all_nodes unless block_given?
+  end
 end
 cool_array = []
-10.times do
+15.times do
   cool_array << rand(50)
 end
 
+puts 'Generating new tree:'
 test_tree = Tree.new(cool_array)
 test_tree.pretty_print
 
+puts
+puts
+
+puts 'Inserting random values:'
 5.times do
   num = rand(100)
   test_tree.insert(num)
@@ -196,6 +232,10 @@ test_tree.pretty_print
 end
 test_tree.pretty_print
 
+puts
+puts
+
+puts 'Deleting random values:'
 3.times do
   num = cool_array.sample
   test_tree.delete(num)
@@ -203,11 +243,51 @@ test_tree.pretty_print
 end
 test_tree.pretty_print
 
+puts
+puts
+
 root = test_tree.get_root
 puts "Deleting root: #{root.data}"
 test_tree.delete(root.data)
 test_tree.pretty_print
 
-test_tree.level_order { |node| print "#{node.data} " }
 puts
-p test_tree.level_order
+puts
+
+puts 'Getting values:'
+
+puts
+puts
+
+puts 'Breadth-first search:'
+puts 'Level Order:'
+print "With block multiplying by 3:\t"
+test_tree.level_order { |node| print "#{node.data * 3}\t" }
+puts
+puts "Without block:\t\t\t#{test_tree.level_order.join("\t")}"
+
+puts
+puts
+
+puts 'Depth-first search:'
+puts 'In-order:'
+print "With block multiplying by 3:\t"
+test_tree.inorder { |node| print "#{node.data * 3}\t" }
+puts
+puts "Without block:\t\t\t#{test_tree.inorder.join("\t")}"
+
+puts
+
+puts 'Pre-order:'
+print "With block multiplying by 3:\t"
+test_tree.preorder { |node| print "#{node.data * 3}\t" }
+puts
+puts "Without block:\t\t\t#{test_tree.preorder.join("\t")}"
+
+puts
+
+puts 'Post-order:'
+print "With block multiplying by 3:\t"
+test_tree.postorder { |node| print "#{node.data * 3}\t" }
+puts
+puts "Without block:\t\t\t#{test_tree.postorder.join("\t")}"
