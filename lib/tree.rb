@@ -130,6 +130,7 @@ class Tree
     to_delete = find(val)
     parent_and_dir = find_parent(to_delete)
     return nil if to_delete.nil?
+
     if parent_and_dir.nil?
       if to_delete.leaf?
         @root = nil
@@ -164,6 +165,21 @@ class Tree
       parent.change_child(direction, to_assign)
     end
   end
+
+  def level_order
+    queue = []
+    all_nodes = []
+
+    current_node = @root
+    until current_node.nil?
+      yield(current_node) if block_given?
+      all_nodes << current_node.data
+      queue << current_node.left unless current_node.left.nil?
+      queue << current_node.right unless current_node.right.nil?
+      current_node = queue.shift
+    end
+    all_nodes unless block_given?
+  end
 end
 cool_array = []
 10.times do
@@ -191,3 +207,7 @@ root = test_tree.get_root
 puts "Deleting root: #{root.data}"
 test_tree.delete(root.data)
 test_tree.pretty_print
+
+test_tree.level_order { |node| print "#{node.data} " }
+puts
+p test_tree.level_order
