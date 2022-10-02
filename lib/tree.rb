@@ -235,6 +235,18 @@ class Tree
 
     1 + depth(find_parent(node)[0])
   end
+
+  # tree-balancing methods
+  def balanced?(root = @root)
+    return true if root.nil?
+
+    left_height = height(root.left)
+    right_height = height(root.right)
+
+    return true if (right_height - left_height).abs <= 1 && balanced?(root.left) && balanced?(root.right)
+
+    false
+  end
 end
 cool_array = []
 15.times do
@@ -244,6 +256,8 @@ end
 puts 'Generating new tree:'
 test_tree = Tree.new(cool_array)
 test_tree.pretty_print
+
+puts test_tree.balanced? ? 'Tree is balanced' : 'Tree is not balanced'
 
 puts
 puts
@@ -256,6 +270,8 @@ puts 'Inserting random values:'
 end
 test_tree.pretty_print
 
+puts test_tree.balanced? ? 'Tree is balanced' : 'Tree is not balanced'
+
 puts
 puts
 
@@ -266,6 +282,8 @@ puts 'Deleting random values:'
   puts "Deleting: #{num}"
 end
 test_tree.pretty_print
+
+puts test_tree.balanced? ? 'Tree is balanced' : 'Tree is not balanced'
 
 puts
 puts
