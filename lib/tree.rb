@@ -219,11 +219,8 @@ class Tree
 
   # node-attribute-relative-to-tree methods
   def height(node)
-    p '0' if node.nil?
     return 0 if node.nil? || node.leaf?
-    p 'right is nil' if node.right.nil?
     return 1 + height(node.left) if node.right.nil?
-    p 'left is nil' if node.left.nil?
     return 1 + height(node.right) if node.left.nil?
 
     1 + [height(node.left), height(node.right)].to_enum.max
