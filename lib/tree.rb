@@ -219,11 +219,21 @@ class Tree
 
   # node-attribute-relative-to-tree methods
   def height(node)
+    p '0' if node.nil?
     return 0 if node.nil? || node.leaf?
-    return height(node.left) if node.right.nil?
-    return height(node.right) if node.left.nil?
+    p 'right is nil' if node.right.nil?
+    return 1 + height(node.left) if node.right.nil?
+    p 'left is nil' if node.left.nil?
+    return 1 + height(node.right) if node.left.nil?
 
-    1 + [height(node.left), height(node.right)].max
+    1 + [height(node.left), height(node.right)].to_enum.max
+  end
+
+  def depth(node)
+    return 0 if node.nil? || node == @root
+    return 1 if find_parent(node)[0] == @root
+
+    1 + depth(find_parent(node)[0])
   end
 end
 cool_array = []
@@ -255,14 +265,6 @@ puts 'Deleting random values:'
   test_tree.delete(num)
   puts "Deleting: #{num}"
 end
-test_tree.pretty_print
-
-puts
-puts
-
-root = test_tree.get_root
-puts "Deleting root: #{root.data}"
-test_tree.delete(root.data)
 test_tree.pretty_print
 
 puts
@@ -306,4 +308,11 @@ test_tree.postorder { |node| print "#{node.data * 3}\t" }
 puts
 puts "Without block:\t\t\t#{test_tree.postorder.join("\t")}"
 
-p test_tree.height(test_tree.get_root)
+puts
+puts
+
+puts 'Getting height & depth of random node:'
+rand_data_point = test_tree.inorder.sample
+puts "The height of #{rand_data_point} is #{test_tree.height(test_tree.find(rand_data_point))}"
+
+puts "The depth of #{rand_data_point} is #{test_tree.depth(test_tree.find(rand_data_point))}"

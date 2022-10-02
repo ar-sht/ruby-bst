@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a126ff93-e505-4e24-9685-6077880f16c6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/tree.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/tree.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +174,7 @@
       <workItem from="1664485477037" duration="12821000" />
       <workItem from="1664540074774" duration="6937000" />
       <workItem from="1664749067107" duration="2635000" />
-      <workItem from="1664751721647" duration="317000" />
+      <workItem from="1664751721647" duration="988000" />
     </task>
     <servers />
   </component>
